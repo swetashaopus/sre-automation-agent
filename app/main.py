@@ -1,73 +1,31 @@
+
+import json
 import time
-import signal
-import threading
+from pathlib import Path
 
-from config.settings import Settings
-from connectors.prometheus_client import PrometheusClient
-from connectors.log_aggregator import LogAggregator
-from connectors.slack_notifier import SlackNotifier
-from analysis.anomaly_detector import AnomalyDetector
-from analysis.ai_summarizer import AISummarizer
-from incident.incident_manager import IncidentManager
-from api.health_server import start_health_server
-from utils.logger import logger
+print("🚀 AI SRE Automation Agent (Corporate Demo Mode)")
 
-def main():
-    settings = Settings()
+data_file = Path(__file__).resolve().parent.parent / "demo" / "test_metrics.json"
 
-    logger.info("🚀 AI SRE Automation Agent Starting...")
+with open(data_file) as f:
+    test_data = json.load(f)
 
-    prometheus = PrometheusClient(settings)
-    logs = LogAggregator()
-    detector = AnomalyDetector(settings.anomaly_threshold)
-    summarizer = AISummarizer()
-    incident_manager = IncidentManager()
-    slack = SlackNotifier(settings)
+print("📊 Loaded Test Dataset")
 
-    threading.Thread(target=start_health_server, daemon=True).start()
+# Process normal cycles
+for entry in test_data["normal_cycle"]:
+    print(f"✅ Normal Metrics | CPU: {entry['cpu_usage']}% | Memory: {entry['memory_usage']}%")
+    time.sleep(1)
 
-    running = True
+# Process anomaly cycle
+for entry in test_data["anomaly_cycle"]:
+    print(f"🔥 Anomaly Metrics | CPU: {entry['cpu_usage']}% | Memory: {entry['memory_usage']}%")
+    time.sleep(1)
+    
+    if entry["cpu_usage"] > 80:
+        print("⚠️ INCIDENT DETECTED")
+        print(f"🧠 AI Summary: High CPU spike ({entry['cpu_usage']}%). Likely traffic surge or heavy workload.")
+        print("📨 Slack Alert Sent (Simulated)")
+        time.sleep(1)
 
-    def shutdown_handler(signum, frame):
-        nonlocal running
-        logger.info("🛑 Graceful shutdown initiated...")
-        running = False
-
-    signal.signal(signal.SIGINT, shutdown_handler)
-    signal.signal(signal.SIGTERM, shutdown_handler)
-
-    cycle = 0
-
-    while running:
-        try:
-            logger.info("🔎 Monitoring cycle started")
-
-            metrics = prometheus.fetch_metrics()
-            log_data = logs.collect_logs()
-
-            if settings.demo_mode and cycle == 2:
-                logger.warning("🔥 Injecting demo anomaly spike")
-                metrics["cpu_usage"] = 97
-
-            anomalies = detector.detect(metrics, log_data)
-
-            if anomalies:
-                incident = incident_manager.create(anomalies)
-                if incident:
-                    summary = summarizer.summarize(anomalies)
-                    logger.warning(f"⚠️ Incident Detected: {summary}")
-                    slack.send(summary)
-                else:
-                    logger.info("Duplicate incident ignored.")
-
-            cycle += 1
-            time.sleep(settings.polling_interval)
-
-        except Exception:
-            logger.exception("Unexpected failure in monitoring loop.")
-            time.sleep(5)
-
-    logger.info("✅ Agent shutdown complete.")
-
-if __name__ == "__main__":
-    main()
+print("✅ Demo completed successfully")

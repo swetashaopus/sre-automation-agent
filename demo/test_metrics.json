@@ -1,0 +1,36 @@
+{
+    "normal_cycle": [
+        {
+            "timestamp": "2026-02-18T10:00:00Z",
+            "cpu_usage": 35,
+            "memory_usage": 55,
+            "error_rate": 0.2
+        },
+        {
+            "timestamp": "2026-02-18T10:01:00Z",
+            "cpu_usage": 42,
+            "memory_usage": 58,
+            "error_rate": 0.3
+        },
+        {
+            "timestamp": "2026-02-18T10:02:00Z",
+            "cpu_usage": 47,
+            "memory_usage": 60,
+            "error_rate": 0.1
+        }
+    ],
+    "anomaly_cycle": [
+        {
+            "timestamp": "2026-02-18T10:03:00Z",
+            "cpu_usage": 92,
+            "memory_usage": 88,
+            "error_rate": 4.5
+        },
+        {
+            "timestamp": "2026-02-18T10:04:00Z",
+            "cpu_usage": 95,
+            "memory_usage": 91,
+            "error_rate": 5.2
+        }
+    ]
+}
