@@ -1,7 +1,8 @@
 class LogAggregator:
-    def __init__(self, log_sources):
-        self.log_sources = log_sources
-        self.logs = []
+def __init__(self, source: str = "local", path: str | None = None):
+        self.source = source
+        self.path = path
+
 
     def collect_logs(self):
         for source in self.log_sources:
