@@ -2,7 +2,7 @@ prometheus-client
 grafana-api
 requests
 PyYAML
-smtplib
+##smtplib
 pytest
 numpy
 scikit-learn
