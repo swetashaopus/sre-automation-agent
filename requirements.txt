@@ -1,8 +1,0 @@
-prometheus-client
-grafana-api
-requests
-PyYAML
-##smtplib
-pytest
-numpy
-scikit-learn
