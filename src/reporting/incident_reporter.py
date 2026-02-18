@@ -1,7 +1,11 @@
+from typing import Any
+
 class IncidentReporter:
-    def __init__(self, anomaly_data, log_data):
-        self.anomaly_data = anomaly_data
-        self.log_data = log_data
+    def __init__(self, anomaly_data: Any = None, log_data: Any = None, email_config: dict | None = None):
+        self.anomaly_data = anomaly_data or {}
+        self.log_data = log_data or {}
+        self.email_config = email_config or {}
+
 
     def generate_report(self):
         report_content = self._format_report()
