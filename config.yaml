@@ -1,0 +1,33 @@
+# Configuration for SRE Automation Agent
+# This file contains default settings that can be customized
+
+monitoring:
+  # How often to run monitoring checks (in seconds)
+  interval_seconds: 60
+  
+  # Thresholds for alerts (percentage)
+  cpu_threshold: 80
+  memory_threshold: 85
+  disk_threshold: 90
+
+alerts:
+  # Enable/disable alerting
+  enabled: true
+  
+  # Alert methods: log, email, slack (currently only log is implemented)
+  methods:
+    - log
+
+logging:
+  # Logging level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  level: INFO
+  
+  # Log file path
+  file: sre_agent.log
+
+# Services to monitor (optional)
+# Uncomment and configure services you want to monitor
+services:
+  # - name: nginx
+  # - name: python
+  # - name: docker
