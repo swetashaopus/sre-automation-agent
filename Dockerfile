@@ -1,5 +1,11 @@
 FROM python:3.9-slim
 
+# System deps your packages may need (example: build tools, libpq for psycopg2)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+  && rm -rf /var/lib/apt/lists/*
+  
 # Set the working directory
 WORKDIR /app
 
@@ -7,7 +13,8 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip \
+&& pip install --no-cache-dir -r requirements.txt
 
 # Copy the source code
 COPY src/ ./src/
