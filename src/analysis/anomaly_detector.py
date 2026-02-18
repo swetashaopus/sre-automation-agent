@@ -1,7 +1,17 @@
+
+from typing import Optional
+from src.connectors.prometheus_client import PrometheusClient
+from src.connectors.log_aggregator import LogAggregator
+
 class AnomalyDetector:
-    def __init__(self, prometheus_client, log_aggregator):
-        self.prometheus_client = prometheus_client
-        self.log_aggregator = log_aggregator
+    def __init__(
+        self,
+        prometheus_client: Optional[PrometheusClient] = None,
+        log_aggregator: Optional[LogAggregator] = None,
+    ):
+        self.prometheus_client = prometheus_client or PrometheusClient()
+        self.log_aggregator = log_aggregator or LogAggregator()
+
 
     def detect_anomalies(self):
         metrics = self.prometheus_client.fetch_metrics()
