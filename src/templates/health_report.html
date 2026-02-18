@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .metric {
+            margin: 5px 0;
+        }
+        .status {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Health Report</h1>
+    <div class="section">
+        <h2>System Overview</h2>
+        <p>Report generated on: {{ report_date }}</p>
+        <p>Overall Status: <span class="status">{{ overall_status }}</span></p>
+    </div>
+    <div class="section">
+        <h2>Metrics</h2>
+        {% for metric in metrics %}
+            <div class="metric">
+                <strong>{{ metric.name }}:</strong> {{ metric.value }} ({{ metric.timestamp }})
+            </div>
+        {% endfor %}
+    </div>
+    <div class="section">
+        <h2>Recent Anomalies</h2>
+        {% if anomalies %}
+            <ul>
+                {% for anomaly in anomalies %}
+                    <li>{{ anomaly.description }} at {{ anomaly.timestamp }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No anomalies detected.</p>
+        {% endif %}
+    </div>
+    <div class="section">
+        <h2>Recommendations</h2>
+        <p>{{ recommendations }}</p>
+    </div>
+</body>
+</html>

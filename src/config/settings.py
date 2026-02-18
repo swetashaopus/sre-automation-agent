@@ -1,0 +1,11 @@
+DATABASE_URL = "postgresql://user:password@localhost:5432/mydatabase"
+PROMETHEUS_URL = "http://localhost:9090"
+GRAFANA_URL = "http://localhost:3000"
+EMAIL_SMTP_SERVER = "smtp.example.com"
+EMAIL_SMTP_PORT = 587
+EMAIL_USERNAME = "user@example.com"
+EMAIL_PASSWORD = "password"
+EMAIL_FROM = "noreply@example.com"
+EMAIL_TO = ["stakeholder1@example.com", "stakeholder2@example.com"]
+ANOMALY_DETECTION_THRESHOLD = 0.05
+LOG_LEVEL = "INFO"
