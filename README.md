@@ -186,7 +186,7 @@ python agent.py --report
 
 This will generate two report files:
 - `sre_report_YYYYMMDD_HHMMSS.json` - JSON format report
-- `sre_report_YYYYMMDD_HHMMSS.text` - Human-readable text report
+- `sre_report_YYYYMMDD_HHMMSS.txt` - Human-readable text report
 
 ## Architecture
 
