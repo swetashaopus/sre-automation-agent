@@ -1,7 +1,9 @@
 class GrafanaClient:
-    def __init__(self, url, api_key):
-        self.url = url
+    def __init__(self, base_url: str = "http://localhost:3000", api_key: str | None = None, timeout: float = 10.0):
+        self.base_url = base_url
         self.api_key = api_key
+        self.timeout = timeout
+
 
     def get_dashboards(self):
         headers = {
