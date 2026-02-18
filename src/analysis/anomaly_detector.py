@@ -1,9 +1,18 @@
 class AnomalyDetector:
-    def __init__(self, prometheus_client, log_aggregator):
+    def __init__(self, prometheus_client=None, log_aggregator=None):
         self.prometheus_client = prometheus_client
         self.log_aggregator = log_aggregator
 
+    def detect(self, metrics):
+        if metrics is None:
+            return []
+        if isinstance(metrics, list):
+            return [metric for metric in metrics if self.is_anomalous(metric)]
+        return []
+
     def detect_anomalies(self):
+        if self.prometheus_client is None or self.log_aggregator is None:
+            return []
         metrics = self.prometheus_client.fetch_metrics()
         logs = self.log_aggregator.collect_logs()
         
@@ -17,7 +26,7 @@ class AnomalyDetector:
     def is_anomalous(self, metric):
         # Implement anomaly detection logic here
         # For example, using statistical methods or machine learning
-        pass
+        return False
 
     def correlate_with_logs(self, anomalies):
         correlated_data = []

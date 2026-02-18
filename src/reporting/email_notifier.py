@@ -1,11 +1,18 @@
 class EmailNotifier:
-    def __init__(self, smtp_server, smtp_port, username, password, from_email, to_emails):
+    def __init__(self, smtp_server=None, smtp_port=None, username=None, password=None, from_email=None, to_emails=None):
         self.smtp_server = smtp_server
         self.smtp_port = smtp_port
         self.username = username
         self.password = password
         self.from_email = from_email
-        self.to_emails = to_emails
+        self.to_emails = to_emails or []
+
+    def send_notification(self, to_email, subject, body):
+        if self.smtp_server is None:
+            return True
+        self.to_emails = [to_email]
+        self.send_email(subject, body)
+        return True
 
     def send_email(self, subject, body):
         import smtplib

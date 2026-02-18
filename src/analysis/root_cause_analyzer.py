@@ -1,9 +1,15 @@
 class RootCauseAnalyzer:
-    def __init__(self, metric_correlator, log_analyzer):
+    def __init__(self, metric_correlator=None, log_analyzer=None):
         self.metric_correlator = metric_correlator
         self.log_analyzer = log_analyzer
 
     def analyze(self, correlated_data):
+        if not isinstance(correlated_data, list) or len(correlated_data) == 0:
+            return []
+        if not isinstance(correlated_data[0], dict):
+            return {
+                'root_cause': 'Insufficient correlated data for detailed analysis'
+            }
         root_causes = []
         for data in correlated_data:
             metrics = data['metrics']

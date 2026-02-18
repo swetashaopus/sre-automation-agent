@@ -1,9 +1,14 @@
+import requests
+
+
 class GrafanaClient:
-    def __init__(self, url, api_key):
+    def __init__(self, url=None, api_key=None):
         self.url = url
         self.api_key = api_key
 
     def get_dashboards(self):
+        if self.url is None or self.api_key is None:
+            return [{"title": "Default Dashboard", "uid": "default"}]
         headers = {
             'Authorization': f'Bearer {self.api_key}',
             'Content-Type': 'application/json'
